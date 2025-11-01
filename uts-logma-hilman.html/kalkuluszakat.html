@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UTS Logika Matematika - Level 4</title>
+  </head>
+  <body>
+    <h1>UTS Logika Matematika</h1>
+     
+    <p>
+      <b>Nama:</b>Hilman Ardiansyah<br />
+      <b>NIM:</b> 256512005<br />
+      <b>Kelas:</b> Informatika<br />
+      <b>Dosen:</b> Iin Sholihin<br />
+      <b>Kampus:</b> Universitas Ma`soem<br />
+    </p>
+    <label>
+        <select name="jenis" id="jenis">
+            <option value="emas">Emas</option>
+            <option value="Pertanian">Pertanian</option>
+            <option value="penghasilan">Penghasilan</option>
+        </select>
+      <input type="checkbox" id="cekNilaiZakat" onchange="toggleInput()" /> Jumlah
+      nilai zakat:
+    </label>
+    <input type="number" id="nilaizakat" disabled /><br /><br />
+
+    <label>Lama kepemilikan (tahun):</label>
+    <input type="number" id="haul" /><br /><br />
+
+    <button onclick="cekZakat()">Cek Zakat</button>
+    <p id="hasil"></p>
+    <p id="penjelasan"></p>
+    <script>
+      function toggleInput() {
+        const ceknilaiZakat = document.getElementById("cekNilaiZakat");
+        const nilaizakat = document.getElementById("nilaizakat");
+        if (cekNilaiZakat.checked) {
+          nilaizakat.disabled = false;
+        } else {
+          nilaizakat.disabled = true;
+          nilaizakat.value = 0;
+        }
+      }
+
+      function cekZakat() {
+        const nilaizakat = parseFloat(document.getElementById("nilaizakat").value);
+        const haul = parseFloat(document.getElementById("haul").value);
+        const hasil = document.getElementById("hasil");
+        const penjelasan = document.getElementById("penjelasan");
+        const jenis = document.getElementById("jenis").value;
+        const nisab = {
+            emas:85,
+            Pertanian:653,
+            penghasilan:2321000
+        };
+
+        const teksjenis = {
+            emas:"gram emas",
+            Pertanian:"kilogram pertanian",
+            penghasilan:"rupiah penghasilan"
+        };
+            
+    
+
+        if (nilaizakat >= nisab[jenis]  && haul >= 1) {
+          hasil.innerHTML = "Wajib Zakat";
+          penjelasan.innerHTML = "Hukum logika yang digunakan adalah AND Karena jumlah nilaizakat Anda adalah " + nilaizakat + " "+teksjenis[jenis]+", yang melebihi " + nisab[jenis] + " "+teksjenis[jenis]+", dan telah dimiliki selama " + haul + " tahun, maka Anda wajib membayar zakat.";
+        } else {hasil.innerHTML = "Tidak Wajib Zakat";
+            penjelasan.innerHTML = "Hukum logika yang digunakan adalah AND Karena jumlah nilaizakat Anda adalah " + nilaizakat + " "+teksjenis[jenis]+", yang tidak melebihi " + nisab[jenis] + " "+teksjenis[jenis]+", atau belum dimiliki selama " + haul + " tahun, maka Anda tidak wajib membayar zakat.";
+    }
+      }
+    </script>
+  </body>
+</html>
